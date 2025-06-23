@@ -47,7 +47,9 @@ namespace ClipCutter
         /// <param name="e"></param>
         private void InitHotKey()
         {
+            // ホットキーを初期化
             hotKey = new HotKey(ModKeys.CONTROL, Keys.Q);
+            // ホットキー押下時のイベントを設定
             hotKey.HotKeyPush += (s, e) => { PushedHotKey(); };
         }
 
