@@ -72,24 +72,39 @@ namespace ClipCutter
 
                 // 改行コードで分割する
                 var lines = text.Split(new[] { "\r\n" }, StringSplitOptions.None);
-                // 最初の行
-                var firstLine = lines[0];
                 // リスト化
                 List<string> lineList = new List<string>(lines);
+
+                // 最初の行を取得
+                string firstLine = lineList.First();
                 // 先頭行を削除
                 lineList.RemoveAt(0);
                 // 残りの文字列
                 var remainText = string.Join("\r\n", lineList.ToArray());
 
-                // クリップボードに先頭行を設定する
-                Clipboard.SetText(firstLine);
-                // 少し待つ
-                Thread.Sleep(50);
-                // Ctrl+V を送信する
-                SendKeys.SendWait("^(v)");
+                // 文字列があれば
+                if (firstLine.Length > 0)
+                {
+                    // クリップボードに先頭行を設定する
+                    Clipboard.SetText(firstLine);
+                    // 少し待つ
+                    Thread.Sleep(50);
+                    // Ctrl+V を送信する
+                    SendKeys.SendWait("^(v)");
+                }
 
-                // 残りの文字列をクリップボードに設定する
-                Clipboard.SetText(remainText);
+                // 残り文字列があれば
+                if (remainText.Length > 0)
+                {
+                    // 残りの文字列をクリップボードに設定する
+                    Clipboard.SetText(remainText);
+                }
+                // なければ
+                else
+                {
+                    // クリア
+                    Clipboard.Clear();
+                }
             }
             catch (Exception ex)
             {
