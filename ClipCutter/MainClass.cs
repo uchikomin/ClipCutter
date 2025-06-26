@@ -149,11 +149,13 @@ namespace ClipCutter
         private void OnSetting()
         {
             // 設定画面
-            var setting = new FormMain();
-            // 設定画面を表示
-            if (setting.ShowDialog() != DialogResult.OK)
+            using (var setting = new FormMain())
             {
-                return;
+                // 設定画面を表示
+                if (setting.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
             }
         }
 
